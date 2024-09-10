@@ -8,6 +8,3 @@ const commentSchema = new Schema({
 });
 
 module.exports = model('Comment', commentSchema);
-
-
-
