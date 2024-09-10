@@ -16,7 +16,7 @@ const CommentSection = ({ postId, comments }) => {
       console.error('Error creating comment:', error);
     }
   };
-
+//return the following
   return (
     <div>
       <h3>Comments</h3>
