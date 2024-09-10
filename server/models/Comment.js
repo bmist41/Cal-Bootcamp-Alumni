@@ -10,6 +10,4 @@ const commentSchema = new Schema({
 module.exports = model('Comment', commentSchema);
 
 
-const Thought = model('Thought', thoughtSchema);
 
-module.exports = Thought;
