@@ -5,10 +5,16 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    profile: Profile
+    posts: [Post]
+  }
+
+  type Profile {
     linkedin: String
     github: String
-    description: String
-    pathToFirstJob: String
+    bio: String
+    bootcampClass: String
+    firstJobPath: String
   }
 
   type Post {
@@ -16,8 +22,8 @@ const typeDefs = gql`
     title: String
     content: String
     user: User
-    comments: [Comment]
     createdAt: String
+    comments: [Comment]
   }
 
   type Comment {
@@ -29,27 +35,22 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: ID!
+    token: String
     user: User
   }
 
   type Query {
-    posts: [Post]
-    post(_id: ID!): Post
-    user(_id: ID!): User
     me: User
+    posts: [Post]
+    post(id: ID!): Post
   }
 
   type Mutation {
-    login(username: String!, password: String!): Auth
-    signup(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    createProfile(linkedin: String!, github: String!, bio: String!, bootcampClass: String!, firstJobPath: String!): Profile
     createPost(title: String!, content: String!): Post
-    updatePost(_id: ID!, title: String, content: String): Post
-    deletePost(_id: ID!): Post
     createComment(postId: ID!, content: String!): Comment
-    deleteComment(_id: ID!): Comment
   }
 `;
 
 module.exports = typeDefs;
-
