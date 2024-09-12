@@ -16,7 +16,6 @@ const thoughtSchema = new Schema({
   },
   thoughtType: {
     type: String,
-    required: true,
     trim: true,
     enum: ['Post', 'Interview'],
   },
