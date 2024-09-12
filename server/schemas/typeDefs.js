@@ -1,55 +1,50 @@
-const { gql } = require('apollo-server-express');
-
-const typeDefs = gql`
+const typeDefs = `
   type User {
     _id: ID
     username: String
     email: String
-    profile: Profile
-    posts: [Post]
-  }
-
-  type Profile {
-    linkedin: String
+    password: String
     github: String
-    bio: String
-    bootcampClass: String
-    firstJobPath: String
+    linkedIn: String
+    currentJob: String
+    previousJob: String
+    thoughts: [Thought]!
   }
 
-  type Post {
+  type Thought {
     _id: ID
-    title: String
-    content: String
-    user: User
+    thoughtText: String
+    thoughtAuthor: String
     createdAt: String
-    comments: [Comment]
+    comments: [Comment]!
   }
 
   type Comment {
     _id: ID
-    content: String
-    user: User
-    post: Post
+    commentText: String
+    commentAuthor: String
     createdAt: String
   }
 
   type Auth {
-    token: String
+    token: ID!
     user: User
   }
 
   type Query {
+    user(username: String!): User
+    thoughts(username: String): [Thought]
+    thought(thoughtId: ID!): Thought
     me: User
-    posts: [Post]
-    post(id: ID!): Post
   }
 
   type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    createProfile(linkedin: String!, github: String!, bio: String!, bootcampClass: String!, firstJobPath: String!): Profile
-    createPost(title: String!, content: String!): Post
-    createComment(postId: ID!, content: String!): Comment
+    addThought(thoughtText: String!): Thought
+    addComment(thoughtId: ID!, commentText: String!): Thought
+    removeThought(thoughtId: ID!): Thought
+    removeComment(thoughtId: ID!, commentId: ID!): Thought
   }
 `;
 

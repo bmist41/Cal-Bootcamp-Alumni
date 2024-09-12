@@ -1,50 +1,135 @@
-const { User, Post, Comment } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../utils/auth');
+const { User, Thought } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
+    users: async () => {
+      return User.find().populate('thoughts');
+    },
+    user: async (parent, { username }) => {
+      return User.findOne({ username }).populate('thoughts');
+    },
+    thoughts: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Thought.find(params).sort({ createdAt: -1 });
+    },
+    thought: async (parent, { thoughtId }) => {
+      return Thought.findOne({ _id: thoughtId });
+    },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findById(context.user._id).populate('posts');
+        return User.findOne({ _id: context.user._id }).populate('thoughts');
       }
-      throw new AuthenticationError('Not logged in');
-    },
-    posts: async () => {
-      return Post.find().populate('user comments');
-    },
-    post: async (parent, { id }) => {
-      return Post.findById(id).populate('user comments');
+      throw AuthenticationError;
     },
   },
+
   Mutation: {
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
-      if (!user) throw new AuthenticationError('User not found');
-      const correctPw = await user.isCorrectPassword(password);
-      if (!correctPw) throw new AuthenticationError('Incorrect password');
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    createProfile: async (parent, { linkedin, github, bio, bootcampClass, firstJobPath }, context) => {
-      if (context.user) {
-        return User.findByIdAndUpdate(context.user._id, {
-          profile: { linkedin, github, bio, bootcampClass, firstJobPath },
-        }, { new: true });
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw AuthenticationError;
       }
-      throw new AuthenticationError('Not logged in');
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
     },
-    createPost: async (parent, { title, content }, context) => {
+    addThought: async (parent, { thoughtText }, context) => {
       if (context.user) {
-        return Post.create({ title, content, user: context.user._id });
+        const thought = await Thought.create({
+          thoughtText,
+          thoughtAuthor: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { thoughts: thought._id } }
+        );
+
+        return thought;
       }
-      throw new AuthenticationError('Not logged in');
+      throw AuthenticationError;
     },
-    createComment: async (parent, { postId, content }, context) => {
+    addComment: async (parent, { thoughtId, commentText }, context) => {
       if (context.user) {
-        return Comment.create({ content, post: postId, user: context.user._id });
+        return Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $addToSet: {
+              comments: { commentText, commentAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
       }
-      throw new AuthenticationError('Not logged in');
+      throw AuthenticationError;
+    },
+    removeThought: async (parent, { thoughtId }, context) => {
+      if (context.user) {
+        const thought = await Thought.findOneAndDelete({
+          _id: thoughtId,
+          thoughtAuthor: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { thoughts: thought._id } }
+        );
+
+        return thought;
+      }
+      throw AuthenticationError;
+    },
+    removeComment: async (parent, { thoughtId, commentId }, context) => {
+      if (context.user) {
+        return Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $pull: {
+              comments: {
+                _id: commentId,
+                commentAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+    updateUser: async (parent, {
+      username,
+      email,
+      github,
+      linkedIn,
+      currentJob,
+      previousJob
+    }, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { username, email, github, linkedIn, currentJob, previousJob },
+          { new: true, runValidators: true }
+        );
+        return user;
+      }
+      throw AuthenticationError;
     },
   },
 };
