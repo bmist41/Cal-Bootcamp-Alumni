@@ -42,7 +42,7 @@ const ThoughtList = ({
             <Box bg = "dark gray" mb = "10px">
             <Link to={`/thoughts/${thought._id}`}
             >
-              Join the discussion on this thought.
+              Ask this user a question.
             </Link>
             </Box>
           </Box>
