@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cal-bootcamp-alumni', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cal-bootcamp-alumni');
 
 module.exports = mongoose.connection;
