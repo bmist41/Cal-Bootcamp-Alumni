@@ -5,35 +5,52 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
+        _id
         username
       }
     }
   }
 `;
 
-export const CREATE_POST = gql`
-  mutation createPost($title: String!, $content: String!) {
-    createPost(title: $title, content: $content) {
-      _id
-      title
-      content
+export const ADD_USER = gql`
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
       user {
+        _id
         username
       }
-      createdAt
     }
   }
 `;
 
-export const CREATE_COMMENT = gql`
-  mutation createComment($postId: ID!, $content: String!) {
-    createComment(postId: $postId, content: $content) {
+export const ADD_THOUGHT = gql`
+  mutation addThought($thoughtText: String!) {
+    addThought(thoughtText: $thoughtText) {
       _id
-      content
-      user {
-        username
-      }
+      thoughtText
+      thoughtAuthor
       createdAt
+      comments {
+        _id
+        commentText
+      }
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($thoughtId: ID!, $commentText: String!) {
+    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+      _id
+      thoughtText
+      thoughtAuthor
+      createdAt
+      comments {
+        _id
+        commentText
+        createdAt
+      }
     }
   }
 `;
