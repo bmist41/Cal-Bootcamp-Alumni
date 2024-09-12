@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
+import { Box, Text } from '@chakra-ui/react'; 
 import { ADD_THOUGHT } from '../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../utils/queries';
 
@@ -49,8 +49,8 @@ const ThoughtForm = () => {
   };
 
   return (
-    <div>
-      <h3>What's on your techy mind?</h3>
+    <Box m = "10px" borderStyle = "solid">
+      <h3>Share your thoughts on your bootcamp experience</h3>
 
       {Auth.loggedIn() ? (
         <>
@@ -94,7 +94,7 @@ const ThoughtForm = () => {
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
-    </div>
+    </Box>
   );
 };
 

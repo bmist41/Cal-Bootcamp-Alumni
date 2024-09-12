@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Box, Flex, Heading, Text, Container, Button, ButtonGroup } from '@chakra-ui/react';
+import { Flex, Heading, Container, Button } from '@chakra-ui/react';
 import Auth from '../utils/auth';
 
 const Header = () => {

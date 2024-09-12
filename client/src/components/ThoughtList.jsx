@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Box } from '@chakra-ui/react'; 
+import { Box, Text } from '@chakra-ui/react'; 
 
 const ThoughtList = ({
   thoughts,
@@ -30,19 +30,20 @@ const ThoughtList = ({
                 </Link>
               ) : (
                 <>
-                  <span style={{ fontSize: '1rem' }}>
+                <Box color = "white">
+                  <span style = {{ fontSize: '1rem' }}>
                     You had this thought on {thought.createdAt}
                   </span>
+                </Box>
                 </>
               )}
             </h4>
-            <div className="card-body bg-light p-2">
+            <Box bg = "yellow" color = "darkblue">
               <p>{thought.thoughtText}</p>
-            </div>
-            <Box bg = "dark gray" mb = "10px">
-            <Link to={`/thoughts/${thought._id}`}
-            >
-              Join the discussion on this thought.
+            </Box>
+            <Box bg = "darkblue" mb = "10px">
+            <Link to={`/thoughts/${thought._id}`}>
+             <Text color = "white"> Join the discussion on this thought. </Text>
             </Link>
             </Box>
           </Box>
