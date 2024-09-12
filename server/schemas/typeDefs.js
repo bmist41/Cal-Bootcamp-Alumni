@@ -32,6 +32,7 @@ const typeDefs = `
   }
 
   type Query {
+    users: [User]
     user(username: String!): User
     thoughts(username: String): [Thought]
     thought(thoughtId: ID!): Thought
@@ -45,6 +46,14 @@ const typeDefs = `
     addComment(thoughtId: ID!, commentText: String!): Thought
     removeThought(thoughtId: ID!): Thought
     removeComment(thoughtId: ID!, commentId: ID!): Thought
+    updateUser(
+      username: String!
+      email: String!
+      github: String
+      linkedIn: String
+      currentJob: String
+      previousJob: String
+    ): User
   }
 `;
 
