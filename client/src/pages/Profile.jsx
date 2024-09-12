@@ -1,50 +1,66 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { Navigate, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
-const GET_ME = gql`
-  query {
-    me {
-      username
-      email
-      profile {
-        linkedin
-        github
-        bio
-        bootcampClass
-        firstJobPath
-      }
-      posts {
-        title
-        content
-      }
-    }
-  }
-`;
+import ThoughtForm from '../components/ThoughtForm';
+import ThoughtList from '../components/ThoughtList';
+
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
+
+import Auth from '../utils/auth';
 
 const Profile = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { username: userParam } = useParams();
 
-  if (loading) return <p>Loading...</p>;
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
 
-  const { username, email, profile, posts } = data.me;
+  const user = data?.me || data?.user || {};
+  if (
+    Auth.loggedIn() && 
+    /* Run the getProfile() method to get access to the unencrypted token value in order to retrieve the user's username, and compare it to the userParam variable */
+    Auth.getProfile().authenticatedPerson.username === userParam
+  ) {
+    return <Navigate to="/me" />;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user?.username) {
+    return (
+      <h4>
+        You need to be logged in to see this. Use the navigation links above to
+        sign up or log in!
+      </h4>
+    );
+  }
 
   return (
     <div>
-      <h2>{username}'s Profile</h2>
-      <p>Email: {email}</p>
-      <h3>Profile Details</h3>
-      <p>LinkedIn: {profile.linkedin}</p>
-      <p>GitHub: {profile.github}</p>
-      <p>Bio: {profile.bio}</p>
-      <p>Bootcamp Class: {profile.bootcampClass}</p>
-      <p>First Job Path: {profile.firstJobPath}</p>
-      <h3>My Posts</h3>
-      {posts.map((post, index) => (
-        <div key={index}>
-          <h4>{post.title}</h4>
-          <p>{post.content}</p>
+      <div className="flex-row justify-center mb-3">
+        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        </h2>
+
+        <div className="col-12 col-md-10 mb-5">
+          <ThoughtList
+            thoughts={user.thoughts}
+            title={`${user.username}'s thoughts...`}
+            showTitle={false}
+            showUsername={false}
+          />
         </div>
-      ))}
+        {!userParam && (
+          <div
+            className="col-12 col-md-10 mb-3 p-3"
+            style={{ border: '1px dotted #1a1a1a' }}
+          >
+            <ThoughtForm />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

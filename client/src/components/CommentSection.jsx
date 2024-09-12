@@ -1,43 +1,34 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_COMMENT } from '../graphql/mutations';
+const CommentList = ({ comments = [] }) => {
+  if (!comments.length) {
+    return <h3>No Comments Yet</h3>;
+  }
 
-const CommentSection = ({ postId, comments }) => {
-  const [content, setContent] = useState('');
-  const [createComment] = useMutation(CREATE_COMMENT);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createComment({ variables: { postId, content } });
-      setContent('');
-      window.location.reload();  // Reload the page to show new comments
-    } catch (error) {
-      console.error('Error creating comment:', error);
-    }
-  };
-//return the following
   return (
-    <div>
-      <h3>Comments</h3>
-      {comments.map((comment) => (
-        <div key={comment._id}>
-          <p>{comment.content}</p>
-          <p>by {comment.user.username} on {new Date(comment.createdAt).toLocaleString()}</p>
-        </div>
-      ))}
-
-      <form onSubmit={handleSubmit}>
-        <textarea
-          placeholder="Add a comment"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        ></textarea>
-        <button type="submit">Submit Comment</button>
-      </form>
-    </div>
+    <>
+      <h3
+        className="p-5 display-inline-block"
+        style={{ borderBottom: '1px dotted #1a1a1a' }}
+      >
+        Comments
+      </h3>
+      <div className="flex-row my-4">
+        {comments &&
+          comments.map((comment) => (
+            <div key={comment._id} className="col-12 mb-3 pb-3">
+              <div className="p-3 bg-dark text-light">
+                <h5 className="card-header">
+                  {comment.commentAuthor} commented{' '}
+                  <span style={{ fontSize: '0.825rem' }}>
+                    on {comment.createdAt}
+                  </span>
+                </h5>
+                <p className="card-body">{comment.commentText}</p>
+              </div>
+            </div>
+          ))}
+      </div>
+    </>
   );
 };
 
-export default CommentSection;
+export default CommentList;
