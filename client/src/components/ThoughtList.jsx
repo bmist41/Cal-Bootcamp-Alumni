@@ -97,7 +97,11 @@ const ThoughtList = ({
                 </button>
               )}
             </div>
-
+            <Link
+              className="btn btn-primary btn-block btn-squared"
+              to={`/thoughts/${thought._id}`}
+            >
+              Join the discussion on this thought by clicking here.
             </Link>
           </div>
         ))}
