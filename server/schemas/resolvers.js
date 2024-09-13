@@ -20,7 +20,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('thoughts');
       }
-      throw new AuthenticationError();
+      throw new AuthenticationError('You need to be logged in');
     },
   },
 
@@ -34,17 +34,16 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError();
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError();
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
-
       return { token, user };
     },
     addThought: async (parent, { thoughtText }, context) => {
@@ -61,7 +60,7 @@ const resolvers = {
 
         return thought;
       }
-      throw new AuthenticationError();
+      throw new AuthenticationError('You need to be logged in to add a thought');
     },
     addComment: async (parent, { thoughtId, commentText }, context) => {
       if (context.user) {
@@ -78,7 +77,7 @@ const resolvers = {
           }
         );
       }
-      throw new AuthenticationError();
+      throw new AuthenticationError('You need to be logged in to add a commen!');
     },
     updateThought: async (parent, { thoughtId, thoughtText }, context) => {
       if (context.user) {
@@ -102,6 +101,9 @@ const resolvers = {
           _id: thoughtId,
           thoughtAuthor: context.user.username,
         });
+        if (!thought) {
+          throw AuthenticationError;
+        }
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -110,7 +112,7 @@ const resolvers = {
 
         return thought;
       }
-      throw new AuthenticationError();
+      throw AuthenticationError;
     },
     removeComment: async (parent, { thoughtId, commentId }, context) => {
       if (context.user) {
@@ -127,7 +129,7 @@ const resolvers = {
           { new: true }
         );
       }
-      throw new AuthenticationError();
+      throw new AuthenticationError('You must be logged in to delete comments');
     },
     updateUser: async (parent, {
       username,
@@ -146,7 +148,7 @@ const resolvers = {
         );
         return user;
       }
-      throw new AuthenticationError();
+      throw new AuthenticationError('You must be logged in to update your profile');
     },
   },
 };

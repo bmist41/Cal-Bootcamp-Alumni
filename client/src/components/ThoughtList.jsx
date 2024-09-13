@@ -1,41 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
+import { REMOVE_THOUGHT } from '../utils/mutations';
+import { QUERY_THOUGHTS } from '../utils/queries';
 
-const UPDATE_THOUGHT = gql`
-  mutation updateThought($thoughtId: ID!, $thoughtText: String!) {
-    updateThought(thoughtId: $thoughtId, thoughtText: $thoughtText) {
-      _id
-      thoughtText
-    }
-  }
-`;
+const ThoughtList = ({ thoughts, refetch }) => {
+  const [removeThought] = useMutation(REMOVE_THOUGHT, {
+    refetchQueries: [
+      { query: QUERY_THOUGHTS }
+    ]
+  });
 
-
-const ThoughtList = ({
-  thoughts,
-  title,
-  showTitle = true,
-  showUsername = true,
-}) => {
-  const [isEditing, setIsEditing] = useState(null);
-  const [updatedText, setUpdatedText] = useState('');
-  const [updateThought] = useMutation(UPDATE_THOUGHT);
-
-  const handleEditClick = (thought) => {
-    setIsEditing(thought._id);
-    setUpdatedText(thought.thoughtText);
-  };
-
-  const handleSaveClick = async (thoughtId) => {
+  const handleRemoveClick = async (thoughtId) => {
     try {
-      await updateThought({
-        variables: { thoughtId, thoughtText: updatedText },
-      });
-      setIsEditing(null); // Exit edit mode after saving
+      await removeThought({ variables: { thoughtId } });
     } catch (error) {
-      console.error('Error updating thought:', error);
+      console.error('Error removing thought:', error);
     }
   };
 
@@ -45,69 +24,27 @@ const ThoughtList = ({
 
   return (
     <div>
-      {showTitle && <h3>{title}</h3>}
-      {thoughts &&
-        thoughts.map((thought) => (
-          <div key={thought._id} className="card mb-3">
-            <h4 className="card-header bg-primary text-light p-2 m-0">
-              {showUsername ? (
-                <Link
-                  className="text-light"
-                  to={`/profiles/${thought.thoughtAuthor}`}
-                >
-                  {thought.thoughtAuthor} <br />
-                  <span style={{ fontSize: '1rem' }}>
-                    had this thought on {thought.createdAt}
-                  </span>
-                </Link>
-              ) : (
-                <>
-                  <span style={{ fontSize: '1rem' }}>
-                    You had this thought on {thought.createdAt}
-                  </span>
-                </>
-              )}
-            </h4>
-
-            <div className="card-body bg-light p-2">
-              {isEditing === thought._id ? (
-                <input
-                  type="text"
-                  value={updatedText}
-                  onChange={(e) => setUpdatedText(e.target.value)}
-                />
-              ) : (
-                <p>{thought.thoughtText}</p>
-              )}
-            </div>
-            <div className="card-body">
-              {isEditing === thought._id ? (
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleSaveClick(thought._id)}
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => handleEditClick(thought)}
-                >
-                  Update
-                </button>
-              )}
-            </div>
-            <Link
-              className="btn btn-primary btn-block btn-squared"
-              to={`/thoughts/${thought._id}`}
+      {thoughts.map((thought) => (
+        <div key={thought._id} className="card mb-3">
+          <h4 className="card-header bg-primary text-light p-2 m-0">
+            {thought.thoughtAuthor} thought on {thought.createdAt}
+          </h4>
+          <div className="card-body bg-light p-2">
+            <p>{thought.thoughtText}</p>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleRemoveClick(thought._id)}
             >
-              Join the discussion on this thought by clicking here.
-            </Link>
+              Remove Thought
+            </button>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   );
 };
 
 export default ThoughtList;
+
+
 
