@@ -21,6 +21,25 @@ const Header = () => {
       >
         <Heading>Cal Berkeley Extension Alumni</Heading>
         <Flex>
+
+          <Link to="/" mr={4}>
+            <Button bg = "yellow" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+              Home
+            </Button>
+          </Link>
+          <Link to = "/Users" mr = {4}>
+          <Button bg = "yellow" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+              Users
+            </Button>
+          </Link>
+          <Link to="/" mr={4}>
+            <Button bg = "yellow" h = "50px" maxW = "150px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+              Thoughts
+            </Button>
+          </Link>
+
+          
+          
           {Auth.loggedIn() ? (
             <>
               <Link to="/me" mr={4}>
