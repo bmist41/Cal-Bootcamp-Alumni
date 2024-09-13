@@ -12,6 +12,7 @@ const UPDATE_THOUGHT = gql`
   }
 `;
 
+
 const ThoughtList = ({
   thoughts,
   title,
@@ -67,6 +68,7 @@ const ThoughtList = ({
                 </>
               )}
             </h4>
+
             <div className="card-body bg-light p-2">
               {isEditing === thought._id ? (
                 <input
@@ -99,7 +101,7 @@ const ThoughtList = ({
               className="btn btn-primary btn-block btn-squared"
               to={`/thoughts/${thought._id}`}
             >
-              Join the discussion on this thought ny clicking here.
+              Join the discussion on this thought by clicking here.
             </Link>
           </div>
         ))}

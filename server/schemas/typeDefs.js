@@ -57,7 +57,5 @@ const typeDefs = `
     updateThought(thoughtId: ID!, thoughtText: String!): Thought
   }
 `;
-
 module.exports = typeDefs;
-
 
