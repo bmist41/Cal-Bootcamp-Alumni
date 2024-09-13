@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { Box } from '@chakra-ui/react'; 
+
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
@@ -11,6 +14,7 @@ const UPDATE_THOUGHT = gql`
     }
   }
 `;
+
 
 const ThoughtList = ({
   thoughts,
@@ -43,12 +47,12 @@ const ThoughtList = ({
   }
 
   return (
-    <div>
+     <Box bg = "white" m = "10px" p = "10px">
       {showTitle && <h3>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="card mb-3">
-            <h4 className="card-header bg-primary text-light p-2 m-0">
+          <Box key={thought._id} bg = "darkblue">
+            <h4 bg = "gray">
               {showUsername ? (
                 <Link
                   className="text-light"
@@ -95,15 +99,16 @@ const ThoughtList = ({
                 </button>
               )}
             </div>
-            <Link
-              className="btn btn-primary btn-block btn-squared"
-              to={`/thoughts/${thought._id}`}
+            <Box bg = "dark gray" mb = "10px">
+            <Link to={`/thoughts/${thought._id}`}
             >
               Join the discussion on this thought.
             </Link>
-          </div>
+            </Box>
+          </Box>
         ))}
-    </div>
+    </Box>
+  
   );
 };
 
