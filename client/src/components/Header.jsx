@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Flex, Heading, Container, Button } from '@chakra-ui/react';
+import { Flex, Heading, Container, Button, Image } from '@chakra-ui/react';
 import Auth from '../utils/auth';
+// import bear.png image from assets/images
+import bear from '../../../assets/images/bear.png';
 
 const Header = () => {
   const logout = (event) => {
@@ -20,20 +22,21 @@ const Header = () => {
         fontFamily="sans-serif"
       >
         <Heading>Cal Berkeley Extension Alumni</Heading>
+        <Image src={bear} alt="bear" h="75px" />
         <Flex>
 
           <Link to="/" mr={4}>
-            <Button bg = "yellow" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+            <Button bg = "gold" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
               Home
             </Button>
           </Link>
           <Link to = "/Users" mr = {4}>
-          <Button bg = "yellow" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+          <Button bg = "gold" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
               Users
             </Button>
           </Link>
           <Link to="/" mr={4}>
-            <Button bg = "yellow" h = "50px" maxW = "150px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+            <Button bg = "gold" h = "50px" maxW = "150px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
               Thoughts
             </Button>
           </Link>
@@ -44,7 +47,7 @@ const Header = () => {
             <>
               <Link to="/me" mr={4}>
                 {/* Run the getProfile() method to get access to the unencrypted token value in order to retrieve the user's username  */}
-                <Button bg = "yellow" h = "50px" maxW = "300px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
+                <Button bg = "gold" h = "50px" maxW = "300px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
                 {Auth.getProfile().authenticatedPerson.username}
                 </Button>
               </Link>
@@ -55,7 +58,7 @@ const Header = () => {
           ) : (
             <>
               <Link to="/login" mr={4}>
-                <Button bg = "yellow" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }} >
+                <Button bg = "gold" h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }} >
                   Login
                 </Button>
               </Link>
