@@ -54,3 +54,34 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser(
+    $username: String!
+    $email: String!
+    $github: String
+    $linkedIn: String
+    $currentJob: String
+    $previousJob: String
+    $yearGraduated: String
+  ) {
+    updateUser(
+      username: $username
+      email: $email
+      github: $github
+      linkedIn: $linkedIn
+      currentJob: $currentJob
+      previousJob: $previousJob
+      yearGraduated: $yearGraduated
+    ) {
+      _id
+      username
+      email
+      github
+      linkedIn
+      currentJob
+      previousJob
+      yearGraduated
+    }
+  }
+`;

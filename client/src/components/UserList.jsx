@@ -1,55 +1,42 @@
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { Box } from '@chakra-ui/react'; 
+import { QUERY_USERS } from '../utils/queries';
 
-const ThoughtList = ({
-  thoughts,
-  title,
-  showTitle = true,
-  showUsername = true,
-}) => {
-  if (!thoughts.length) {
-    return <h3>No Thoughts Yet</h3>;
+const UserList = () => {
+  const { loading, data } = useQuery(QUERY_USERS);
+  const users = data?.users || [];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!users.length) {
+    return <h4>No users found!</h4>;
   }
 
   return (
-     <Box bg = "white" m = "10px" p = "10px">
-      {showTitle && <h3>{title}</h3>}
-      {thoughts &&
-        thoughts.map((thought) => (
-          <Box key={thought._id} bg = "darkblue">
-            <h4 bg = "gray">
-              {showUsername ? (
-                <Link
-                  className="text-light"
-                  to={`/profiles/${thought.thoughtAuthor}`}
-                >
-                  {thought.thoughtAuthor} <br />
-                  <span style={{ fontSize: '1rem' }}>
-                    had this thought on {thought.createdAt}
-                  </span>
-                </Link>
-              ) : (
-                <>
-                  <span style={{ fontSize: '1rem' }}>
-                    You had this thought on {thought.createdAt}
-                  </span>
-                </>
-              )}
+    <div>
+      <h2 className="text-center">All User Profiles</h2>
+      <div className="flex-row justify-center">
+        {users.map((user) => (
+          <div key={user._id} className="card col-12 col-md-3 m-3 p-3">
+            <h4 className="card-header bg-primary text-light p-2">
+              <Link className="text-light" to={`/profiles/${user.username}`}>{user.username}</Link>
             </h4>
-            <div className="card-body bg-light p-2">
-              <p>{thought.thoughtText}</p>
+            <div className="card-body">
+              <p><strong>Email:</strong> {user.email}</p>
+              <p><strong>GitHub:</strong> {user.github || 'N/A'}</p>
+              <p><strong>LinkedIn:</strong> {user.linkedIn || 'N/A'}</p>
+              <p><strong>Current Job:</strong> {user.currentJob || 'N/A'}</p>
+              <p><strong>Previous Job:</strong> {user.previousJob || 'N/A'}</p>
+              <p><strong>Year Graduated:</strong> {user.yearGraduated || 'N/A'}</p>
             </div>
-            <Box bg = "dark gray" mb = "10px">
-            <Link to={`/thoughts/${thought._id}`}
-            >
-              Ask this user a question.
-            </Link>
-            </Box>
-          </Box>
+          </div>
         ))}
-    </Box>
-  
+      </div>
+    </div>
   );
 };
 
-export default ThoughtList;
+export default UserList;

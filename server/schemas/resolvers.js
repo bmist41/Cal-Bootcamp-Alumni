@@ -135,12 +135,13 @@ const resolvers = {
       github,
       linkedIn,
       currentJob,
-      previousJob
+      previousJob,
+      yearGraduated
     }, context) => {
       if (context.user) {
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { username, email, github, linkedIn, currentJob, previousJob },
+          { username, email, github, linkedIn, currentJob, previousJob, yearGraduated },
           { new: true, runValidators: true }
         );
         return user;

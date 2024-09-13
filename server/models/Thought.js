@@ -14,11 +14,6 @@ const thoughtSchema = new Schema({
     required: true,
     trim: true,
   },
-  thoughtType: {
-    type: String,
-    trim: true,
-    enum: ['Post', 'Interview'],
-  },
   createdAt: {
     type: Date,
     default: Date.now,
