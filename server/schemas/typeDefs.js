@@ -9,6 +9,7 @@ const typeDefs = `
     currentJob: String
     previousJob: String
     thoughts: [Thought]!
+    yearGraduated: String
   }
 
   type Thought {
@@ -53,6 +54,7 @@ const typeDefs = `
       linkedIn: String
       currentJob: String
       previousJob: String
+      yearGraduated: String
     ): User
     updateThought(thoughtId: ID!, thoughtText: String!): Thought
   }

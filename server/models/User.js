@@ -31,6 +31,9 @@ const userSchema = new Schema({
   previousJob: {
     type: String,
   },
+  yearGraduated: {
+    type: String,
+  },
   thoughts: [
     {
       type: Schema.Types.ObjectId,

@@ -6,6 +6,11 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      github
+      linkedIn
+      currentJob
+      previousJob
+      yearGraduated
       thoughts {
         _id
         thoughtText
@@ -49,12 +54,32 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      github
+      linkedIn
+      currentJob
+      previousJob
+      yearGraduated
       thoughts {
         _id
         thoughtText
         thoughtAuthor
         createdAt
       }
+    }
+  }
+`;
+
+export const QUERY_USERS = gql`
+  query getUsers {
+    users {
+      _id
+      username
+      email
+      github
+      linkedIn
+      currentJob
+      previousJob
+      yearGraduated
     }
   }
 `;

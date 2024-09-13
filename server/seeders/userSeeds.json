@@ -1,53 +1,102 @@
 [
-    {
-      "username": "Brian Kernighan",
-      "email": "bkernighan@techfriends.dev",
-      "password": "password01"
-    },
-    {
-      "username": "Max Kanat-Alexander",
-      "email": "mkanatalexander@techfriends.dev",
-      "password": "password02"
-    },
-    {
-      "username": "Why The Lucky Stiff",
-      "email": "wtls@techfriends.dev",
-      "password": "password03"
-    },
-    {
-      "username": "Kent Beck",
-      "email": "kbeck@techfriends.dev",
-      "password": "password04"
-    },
-    {
-      "username": "Edward V. Berard",
-      "email": "evberard@techfriends.dev",
-      "password": "password05"
-    },
-    {
-      "username": "Alan Kay",
-      "email": "akay@techfriends.dev",
-      "password": "password06"
-    },
-    {
-      "username": "C.A.R. Hoare",
-      "email": "choare@techfriends.dev",
-      "password": "password07"
-    },
-    {
-      "username": "David Thomas",
-      "email": "dthomas@techfriends.dev",
-      "password": "password08"
-    },
-    {
-      "username": "Donald Knuth",
-      "email": "dknuth@techfriends.dev",
-      "password": "password09"
-    },
-    {
-      "username": "Lernantino",
-      "email": "lernantino@techfriends.dev",
-      "password": "password10"
-    }
-  ]
-  
+  {
+    "username": "Brian Kernighan",
+    "email": "bkernighan@techfriends.dev",
+    "password": "password01",
+    "github": "github.com/bkernighan",
+    "linkedIn": "linkedIn.com/bkernighan",
+    "currentJob": "Full-Stack Developer",
+    "previousJob": "Teacher",
+    "yearGraduated": "2023"
+  },
+  {
+    "username": "Max Kanat-Alexander",
+    "email": "mkanatalexander@techfriends.dev",
+    "password": "password02",
+    "github": "github.com/mkanatalexander",
+    "linkedIn": "linkedIn.com/mkanatalexander",
+    "currentJob": "Back-End Developer",
+    "previousJob": "Nurse",
+    "yearGraduated": "2024"
+  },
+  {
+    "username": "Why The Lucky Stiff",
+    "email": "wtls@techfriends.dev",
+    "password": "password03",
+    "github": "github.com/wtls",
+    "linkedIn": "linkedIn.com/wtls",
+    "currentJob": "DevOps Engineer",
+    "previousJob": "Chef",
+    "yearGraduated": "2020"
+  },
+  {
+    "username": "Kent Beck",
+    "email": "kbeck@techfriends.dev",
+    "password": "password04",
+    "github": "github.com/kbeck",
+    "linkedIn": "linkedIn.com/kbeck",
+    "currentJob": "Cloud Engineer",
+    "previousJob": "Construction Worker",
+    "yearGraduated": "2021"
+  },
+  {
+    "username": "Edward V. Berard",
+    "email": "evberard@techfriends.dev",
+    "password": "password05",
+    "github": "github.com/evberard",
+    "linkedIn": "linkedIn.com/evberard",
+    "currentJob": "Data Engineer",
+    "previousJob": "Police Officer",
+    "yearGraduated": "2022"
+  },
+  {
+    "username": "Alan Kay",
+    "email": "akay@techfriends.dev",
+    "password": "password06",
+    "github": "github.com/akay",
+    "linkedIn": "linkedIn.com/akay",
+    "currentJob": "Game Developer",
+    "previousJob": "Bartender",
+    "yearGraduated": "2024"
+  },
+  {
+    "username": "C.A.R. Hoare",
+    "email": "choare@techfriends.dev",
+    "password": "password07",
+    "github": "github.com/choare",
+    "linkedIn": "linkedIn.com/choare",
+    "currentJob": "Front-End Developer",
+    "previousJob": "Artist",
+    "yearGraduated": "2020"
+  },
+  {
+    "username": "David Thomas",
+    "email": "dthomas@techfriends.dev",
+    "password": "password08",
+    "github": "github.com/dthomas",
+    "linkedIn": "linkedIn.com/dthomas",
+    "currentJob": "Machine Learning Engineer",
+    "previousJob": "Bus Driver",
+    "yearGraduated": "2018"
+  },
+  {
+    "username": "Donald Knuth",
+    "email": "dknuth@techfriends.dev",
+    "password": "password09",
+    "github": "github.com/dknuth",
+    "linkedIn": "linkedIn.com/dknuth",
+    "currentJob": "Embedded Systems Developer",
+    "previousJob": "Physical Therapist",
+    "yearGraduated": "2019"
+  },
+  {
+    "username": "Lernantino",
+    "email": "lernantino@techfriends.dev",
+    "password": "password10",    
+    "github": "github.com/lernantino",
+    "linkedIn": "linkedIn.com/lernantino",
+    "currentJob": "Firmware Developer",
+    "previousJob": "Real Estate Agent",
+    "yearGraduated": "2017"
+  }
+]
