@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-
+import { Box, Flex, Heading, Text, Container, Button, ButtonGroup, Link } from '@chakra-ui/react';
 import ThoughtForm from "../components/ThoughtForm";
 import ThoughtList from "../components/ThoughtList";
 
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import { UPDATE_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Container,
-  Button,
-  ButtonGroup,
-  Link,
-} from "@chakra-ui/react";
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -221,7 +210,7 @@ const Profile = () => {
             </>
           ) : (
             <>
-              <h3>Your Profile</h3>
+              <Box color="darkblue" p={6} mb={28} justifyContent = "center" alignItems = "center" fontFamily = "sans-serif" display = "flex" flexDirection="column" borderRadius="md" borderWidth={5} borderStyle="solid" borderColor="darkblue" fontWeight="bold" >
               <p>Username: {user.username}</p>
               <p>Email: {user.email}</p>
               <p>GitHub: {user.github}</p>
@@ -235,12 +224,13 @@ const Profile = () => {
               >
                 Edit Profile
               </button>
+              </Box>
             </>
           )}
         </div>
       )}
 
-      <Box mb={8}>
+      {/* <Box mb={8}>
         <Heading size="md" mb={4}>
           {userParam ? `${user.username}'s` : "My"} Previous Thoughts
         </Heading>
@@ -264,8 +254,8 @@ const Profile = () => {
           borderRadius="md"
         >
           <ThoughtForm />
-        </Box>
-      )}
+        </Box> */}
+      {/* )} */}
     </Flex>
   );
 };
