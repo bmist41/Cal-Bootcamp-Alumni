@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Box, Flex, Heading, Text, Container, Button, ButtonGroup } from '@chakra-ui/react';
+import { Flex, Heading, Container, Button } from '@chakra-ui/react';
 import Auth from '../utils/auth';
 
 const Header = () => {
@@ -29,9 +29,9 @@ const Header = () => {
                 {Auth.getProfile().authenticatedPerson.username}
                 </Button>
               </Link>
-              <Button bg = "white"  h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>
-                Logout
-              </Button>
+              {/* Update the Logout button so that it logs the user out */}
+              <Button onClick={logout} bg = "white" color = "darkblue"  h = "50px" w = "100px" fontSize = "25px" _hover={{ cursor: 'pointer' }}>Logout</Button>
+              
             </>
           ) : (
             <>

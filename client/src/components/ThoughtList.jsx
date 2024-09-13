@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import { Box } from '@chakra-ui/react'; 
-
+import { Box, Text } from '@chakra-ui/react'; 
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
@@ -65,12 +63,20 @@ const ThoughtList = ({
                 </Link>
               ) : (
                 <>
-                  <span style={{ fontSize: '1rem' }}>
+                <Box color = "white">
+                  <span style = {{ fontSize: '1rem' }}>
                     You had this thought on {thought.createdAt}
                   </span>
+                </Box>
                 </>
               )}
             </h4>
+            <Box bg = "yellow" color = "darkblue">
+              <p>{thought.thoughtText}</p>
+            </Box>
+            <Box bg = "darkblue" mb = "10px">
+            <Link to={`/thoughts/${thought._id}`}>
+             <Text color = "white"> Join the discussion on this thought. </Text>
             <div className="card-body bg-light p-2">
               {isEditing === thought._id ? (
                 <input
@@ -103,6 +109,7 @@ const ThoughtList = ({
             <Link to={`/thoughts/${thought._id}`}
             >
               Join the discussion on this thought.
+
             </Link>
             </Box>
           </Box>
