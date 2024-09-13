@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Text } from '@chakra-ui/react'; 
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
@@ -45,12 +44,12 @@ const ThoughtList = ({
   }
 
   return (
-     <Box bg = "white" m = "10px" p = "10px">
+    <div>
       {showTitle && <h3>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <Box key={thought._id} bg = "darkblue">
-            <h4 bg = "gray">
+          <div key={thought._id} className="card mb-3">
+            <h4 className="card-header bg-primary text-light p-2 m-0">
               {showUsername ? (
                 <Link
                   className="text-light"
@@ -63,20 +62,13 @@ const ThoughtList = ({
                 </Link>
               ) : (
                 <>
-                <Box color = "white">
-                  <span style = {{ fontSize: '1rem' }}>
+                  <span style={{ fontSize: '1rem' }}>
                     You had this thought on {thought.createdAt}
                   </span>
-                </Box>
                 </>
               )}
             </h4>
-            <Box bg = "yellow" color = "darkblue">
-              <p>{thought.thoughtText}</p>
-            </Box>
-            <Box bg = "darkblue" mb = "10px">
-            <Link to={`/thoughts/${thought._id}`}>
-             <Text color = "white"> Join the discussion on this thought. </Text>
+
             <div className="card-body bg-light p-2">
               {isEditing === thought._id ? (
                 <input
@@ -105,17 +97,11 @@ const ThoughtList = ({
                 </button>
               )}
             </div>
-            <Box bg = "dark gray" mb = "10px">
-            <Link to={`/thoughts/${thought._id}`}
-            >
-              Join the discussion on this thought.
 
             </Link>
-            </Box>
-          </Box>
+          </div>
         ))}
-    </Box>
-  
+    </div>
   );
 };
 
