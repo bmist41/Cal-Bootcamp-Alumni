@@ -19,12 +19,12 @@ const Footer = () => {
                             Berkeley Legends
                         </Link>
                     </Heading>
-                    {location.pathname !== "/" && (
+                    {/* {location.pathname !== "/" && (
                         // Go back button should take the user back to the previous screen
                         <Button onClick={() => navigate(-1)} bg="white" maxH="50px" maxW="150px" fontFamily={"sans-serif"} fontSize="20px" _hover={{ cursor: 'pointer' }}> &larr;
                          Go Back
-                        </Button>
-                    )}
+                        </Button> */}
+                    {/* )} */}
                 </Flex>
             </Container>
         </Box>
