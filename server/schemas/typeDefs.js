@@ -54,6 +54,7 @@ const typeDefs = `
       currentJob: String
       previousJob: String
     ): User
+    updateThought(thoughtId: ID!, thoughtText: String!): Thought
   }
 `;
 

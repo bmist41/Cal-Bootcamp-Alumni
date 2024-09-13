@@ -20,7 +20,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('thoughts');
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
     },
   },
 
@@ -34,13 +34,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError();
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError();
       }
 
       const token = signToken(user);
@@ -61,7 +61,7 @@ const resolvers = {
 
         return thought;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
     },
     addComment: async (parent, { thoughtId, commentText }, context) => {
       if (context.user) {
@@ -78,7 +78,23 @@ const resolvers = {
           }
         );
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
+    },
+    updateThought: async (parent, { thoughtId, thoughtText }, context) => {
+      if (context.user) {
+        const thought = await Thought.findOneAndUpdate(
+          { _id: thoughtId, thoughtAuthor: context.user.username },
+          { thoughtText },
+          { new: true, runValidators: true }
+        );
+
+        if (!thought) {
+          throw new AuthenticationError('You are not the author of this thought');
+        }
+
+        return thought;
+      }
+      throw new AuthenticationError('You must be logged in to update thoughts');
     },
     removeThought: async (parent, { thoughtId }, context) => {
       if (context.user) {
@@ -94,7 +110,7 @@ const resolvers = {
 
         return thought;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
     },
     removeComment: async (parent, { thoughtId, commentId }, context) => {
       if (context.user) {
@@ -111,7 +127,7 @@ const resolvers = {
           { new: true }
         );
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
     },
     updateUser: async (parent, {
       username,
@@ -129,7 +145,7 @@ const resolvers = {
         );
         return user;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError();
     },
   },
 };
