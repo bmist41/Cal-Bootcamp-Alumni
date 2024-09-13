@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Error from './pages/Error';
+import Thoughts from './components/ThoughtList';
+import Users from './components/UserList';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,13 @@ const router = createBrowserRouter([
       }, {
         path: '/thoughts/:thoughtId',
         element: <SingleThought />
+      }
+      , {
+        path: '/thoughts',
+        element: <Thoughts />
+      }, {
+        path: '/users',
+        element: <Users />
       }
     ]
   }

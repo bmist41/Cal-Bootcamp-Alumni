@@ -65,7 +65,7 @@ const ThoughtForm = () => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div>
               <textarea
                 name="thoughtText"
                 placeholder="Here's a new thought..."

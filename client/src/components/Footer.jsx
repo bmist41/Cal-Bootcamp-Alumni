@@ -20,15 +20,9 @@ const Footer = () => {
                         </Link>
                     </Heading>
                     {location.pathname !== "/" && (
-                        <Button
-                            bg="white"
-                            maxH="50px"
-                            maxW="150px"
-                            fontFamily={"sans-serif"}
-                            fontSize="20px"
-                            _hover={{ cursor: 'pointer' }}
-                        >
-                            &larr; Go Back
+                        // Go back button should take the user back to the previous screen
+                        <Button onClick={() => navigate(-1)} bg="white" maxH="50px" maxW="150px" fontFamily={"sans-serif"} fontSize="20px" _hover={{ cursor: 'pointer' }}> &larr;
+                         Go Back
                         </Button>
                     )}
                 </Flex>
