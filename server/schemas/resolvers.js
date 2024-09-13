@@ -77,7 +77,7 @@ const resolvers = {
           }
         );
       }
-      throw new AuthenticationError('You need to be logged in to add a comment');
+      throw new AuthenticationError('You need to be logged in to add a commen!');
     },
     updateThought: async (parent, { thoughtId, thoughtText }, context) => {
       if (context.user) {
