@@ -33,7 +33,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/bmist41/Cal-Bootcamp-Alumni">
-    <img src="./assets/images/pepecoding.gif" alt="Logo" width="80" height="80">
+    <img src="./assets/images/bear.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Cal Bootcamp Alumni Center</h3>

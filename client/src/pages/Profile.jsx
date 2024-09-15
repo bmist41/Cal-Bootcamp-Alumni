@@ -117,8 +117,10 @@ const Profile = () => {
         <div className="col-12 col-md-10 mb-3 p-3">
           {isEditing ? (
             <>
+            
               <h3>Edit Profile</h3>
               <form onSubmit={handleFormSubmit}>
+              <Box color="darkblue" p={6} mb={28} justifyContent = "center" alignItems = "center" fontFamily = "sans-serif" display = "flex" flexDirection="column" borderRadius="md" borderWidth={5} borderStyle="solid" borderColor="darkblue" fontWeight="bold" >
                 <div className="form-group">
                   <label htmlFor="username">Username:</label>
                   <input
@@ -196,6 +198,7 @@ const Profile = () => {
                     className="form-control"
                   />
                 </div>
+                </Box>
                 <button type="submit" className="btn btn-primary">
                   Save Changes
                 </button>

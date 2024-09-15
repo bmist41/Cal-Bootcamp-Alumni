@@ -1121,6 +1121,10 @@ form .form-group {
   margin: 0.625rem 0;
 }
 
+form .form-group input {
+  margin-left: 10px;
+}
+
 form .form-input,
 form .form-textarea {
   display: block;
