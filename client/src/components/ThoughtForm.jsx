@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { Box, Text } from '@chakra-ui/react'; 
+import { Box, Text, Header } from '@chakra-ui/react'; 
 import { ADD_THOUGHT } from '../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../utils/queries';
 
@@ -51,15 +51,14 @@ const ThoughtForm = () => {
   return (
     <Box m = "10px" borderStyle = "solid">
       <h3>Share your thoughts on your bootcamp experience</h3>
-
       {Auth.loggedIn() ? (
         <>
           <p
             className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
+              characterCount === 480 || error ? 'text-danger' : ''
             }`}
           >
-            Character Count: {characterCount}/280
+            Character Count: {characterCount}/480
           </p>
           <form
             className="flex-row justify-center justify-space-between-md align-center" 
