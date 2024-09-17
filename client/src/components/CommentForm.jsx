@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
+import { Box, Text } from '@chakra-ui/react';
 import { ADD_COMMENT } from '../utils/mutations';
 
 import Auth from '../utils/auth';
@@ -41,8 +41,8 @@ const CommentForm = ({ thoughtId }) => {
   };
 
   return (
-    <div>
-      <h4>What are your thoughts on this thought?</h4>
+    <Box fontFamily = "sans-serif"  m = "10px" borderStyle = "solid" bg = "gold">
+      <h2>What do you have to say?</h2>
 
       {Auth.loggedIn() ? (
         <>
@@ -75,6 +75,7 @@ const CommentForm = ({ thoughtId }) => {
               </button>
             </div>
           </form>
+          
         </>
       ) : (
         <p>
@@ -82,7 +83,7 @@ const CommentForm = ({ thoughtId }) => {
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -228,6 +228,19 @@ const Profile = () => {
                 Edit Profile
               </button>
               </Box>
+              <Box mb={8}>
+        <Heading size="md" mb={4}>
+          {userParam ? `${user.username}'s` : 'My'} Previous Thoughts
+        </Heading></Box>
+      <Box mb={8}>
+        
+        <ThoughtList
+          thoughts={user.thoughts}
+          title={`${user.username}'s thoughts...`}
+          showTitle={false}
+          showUsername={false}
+        />
+      </Box>
             </>
           )}
         </div>

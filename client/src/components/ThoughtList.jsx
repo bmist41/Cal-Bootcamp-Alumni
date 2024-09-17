@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { REMOVE_THOUGHT } from '../utils/mutations';
+import { REMOVE_THOUGHT, UPDATE_THOUGHT } from '../utils/mutations';
 import { QUERY_THOUGHTS } from '../utils/queries';
 import { Link } from 'react-router-dom';
 import { Box, Text, } from '@chakra-ui/react';
@@ -38,7 +38,7 @@ const ThoughtList = ({ thoughts, refetch }) => {
               <Box display="flex" border="solid" width="175px" height="38px" alignContent="center" justifyContent="center" bg = "darkblue" color ="darkblue" mb = "10px">
                 <Text >
                   <Link className="text-light"  to={`/thoughts/${thought._id}`}>
-                    Join the discussion
+                    Add a comment
                   </Link>
                 </Text>
               </Box>
