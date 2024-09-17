@@ -2,6 +2,8 @@ import React from 'react';
 import { useMutation } from '@apollo/client';
 import { REMOVE_THOUGHT } from '../utils/mutations';
 import { QUERY_THOUGHTS } from '../utils/queries';
+import { Link } from 'react-router-dom';
+import { Box, Text, } from '@chakra-ui/react';
 
 const ThoughtList = ({ thoughts, refetch }) => {
   const [removeThought] = useMutation(REMOVE_THOUGHT, {
@@ -31,13 +33,23 @@ const ThoughtList = ({ thoughts, refetch }) => {
           </h4>
           <div className="card-body bg-light p-2">
             <p>{thought.thoughtText}</p>
-            <button
-              className="btn btn-danger"
-              style={{ lineHeight: '.75', resize: 'vertical', width: '175px'  }}
-              onClick={() => handleRemoveClick(thought._id)}
-            >
-              Remove Thought
-            </button>
+            <div className="d-flex justify-content-between">
+              
+              <Box display="flex" border="solid" width="175px" height="38px" alignContent="center" justifyContent="center" bg = "darkblue" color ="darkblue" mb = "10px">
+                <Text >
+                  <Link className="text-light"  to={`/thoughts/${thought._id}`}>
+                    Join the discussion
+                  </Link>
+                </Text>
+              </Box>
+              <button
+                className="btn btn-danger"
+                style={{ lineHeight: '.75', resize: 'vertical', width: '175px' }}
+                onClick={() => handleRemoveClick(thought._id)}
+              >
+                Remove Thought
+              </button>
+            </div>
           </div>
         </div>
       ))}
@@ -46,6 +58,3 @@ const ThoughtList = ({ thoughts, refetch }) => {
 };
 
 export default ThoughtList;
-
-
-

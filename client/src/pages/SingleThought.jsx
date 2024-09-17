@@ -1,7 +1,7 @@
 // Import the `useParams()` hook
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-
+import { Box, Text } from '@chakra-ui/react';
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
 
@@ -22,14 +22,14 @@ const SingleThought = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="my-3">
-      <h3 className="card-header bg-dark text-light p-2 m-0">
+    <Box fontFamily = "sans-serif" >
+      <Text>
         {thought.thoughtAuthor} <br />
         <span style={{ fontSize: '1rem' }}>
           had this thought on {thought.createdAt}
         </span>
-      </h3>
-      <div className="bg-light py-4">
+      </Text>
+      <Text>
         <blockquote
           className="p-4"
           style={{
@@ -41,15 +41,15 @@ const SingleThought = () => {
         >
           {thought.thoughtText}
         </blockquote>
-      </div>
+      </Text>
 
-      <div className="my-5">
+      <Text>
         <CommentList comments={thought.comments} />
-      </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+      </Text>
+      <Text style={{ border: '1px dotted #1a1a1a' }}>
         <CommentForm thoughtId={thought._id} />
-      </div>
-    </div>
+      </Text>
+    </Box>
   );
 };
 
