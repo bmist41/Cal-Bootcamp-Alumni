@@ -33,6 +33,7 @@ const ThoughtList = ({ thoughts, refetch }) => {
             <p>{thought.thoughtText}</p>
             <button
               className="btn btn-danger"
+              style={{ lineHeight: '.75', resize: 'vertical', width: '175px'  }}
               onClick={() => handleRemoveClick(thought._id)}
             >
               Remove Thought
