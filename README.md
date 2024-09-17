@@ -1,23 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 <div align="center">
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -36,10 +18,10 @@
     <img src="./assets/images/bear.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Cal Bootcamp Alumni Center</h3>
+<h3 align="center">Berkeley Extension Coding Bootcamp Alumni Center</h3>
 
   <p align="center">
-    project_description
+    A place for Alumni to network!
     <br />
     <a href="https://github.com/bmist41/Cal-Bootcamp-Alumni"><strong>Explore the docs »</strong></a>
     <br />
@@ -67,6 +49,9 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#root-level-functionality">Root Level Funcitonality</a></li>
+        <li><a href="#client-side-functionality">Client Side Funcitonality</a></li>
+        <li><a href="#server-side-functionality">Server Side Funcitonality</a></li>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
@@ -87,7 +72,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `bmist41`, `Cal-Bootcamp-Alumni`, `msteven14`, `msteven14`, `gmail`, `smoreno2014`, `project_title`, `project_description`
+The Berkeley Extension Coding Bootcamp Alumni Center is a web application which acts as a social network for Alumni of the Coding Bootcamp hosted at the UC Berkeley Extension. Here, Alumni can connect by sharing their experiences and contact information with each other through user profiles and thought posting.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,14 +80,13 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Vite][Vite.js]][Vite-url]
+* [![Chakra][ChakraUI]][Chakra-url]
+* [![Express][Express.js]][Express-url]
+* [![Graph][GraphQL]][GraphQL-url]
+* [![Mongo][MongoDB]][MongoDB-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,33 +95,84 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+This is an example of how to get the project running on your local machine. Alternatively, the application is hosted on Render(LINK).
+
+### Root-level Functionality
+
+* The `npm start` script: In production, we only run the back-end server, which will serve the built React application code as its front end.
+
+* The `npm run develop` script: In development, we need to run both a back-end server and the React development server, so we use the `concurrently` library to execute two separate promises at the same time.
+
+* The `npm install` script: Since our dependencies for the entire application exist in two smaller applications, we use this script to automatically install all of them at once.
+
+* The `npm run seed` script: We can seed our database with data when we run this command.
+
+* The `npm run build` script: When we deploy our application, we instruct the hosting service to execute the `build` command and build our production-ready React application."
+
+```json
+"scripts": {
+  "start": "node server/server.js",
+  "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+  "install": "cd server && npm i && cd ../client && npm i",
+  "seed": "cd server && npm run seed",
+  "build": "cd client && npm run build"
+},
+```
+
+### Client-side Functionality
+
+* Since we run a front-end and back-end server for our full-stack application in development, we set it up so all client-side requests to our API server are prefixed with the API server's URL.
+
+```js
+  proxy: {
+    '/graphql': {
+      target: 'http://localhost:3001',
+      changeOrigin: true,
+      secure: false,
+    },
+  },
+```
+
+### Server-side Functionality
+
+* In production, when we no longer need to use the `vite` development server; we set up our server to serve the built React front-end application that is in the `../client/src` directory.
+
+* Since the React front-end application will handle its own routing, we set up a wildcard route on our server that will serve the front end whenever a request for a non-API route is received.
+
+```js
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/src')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/src/index.html'));
+  });
+}
+```
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+<a href="https://nodejs.org/en/download/package-manager">Node.js</a> and <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">Node Package Manager (NPM)</a> are required to download and install the dependencies of this project. Install <a href="https://nodejs.org/en/download/package-manager">Node.js</a>, then run this command in your CLI to install NPM.
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install -g npm
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo to your desired directory.
    ```sh
-   git clone https://github.com/bmist41/Cal-Bootcamp-Alumni.git
+   git clone git@github.com:bmist41/Cal-Bootcamp-Alumni.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
-   npm install
+   npm run install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
+3. Seed the database.
+    ```sh
+    npm run seed
+4. Run the application.
+    ```sh
+    npm run start
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -145,7 +180,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The application can be run locally, or you can head to Render(LINK) to see the applicaiton hosted on a server.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -197,12 +232,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Barrett Mistele - [@bmist41](https://github.com/bmist41) - emailhere<br>
-Bradley Ragonese - [@bragonese1](https://github.com/bragonese1) - emailhere<br>
-Hunter Thompson - [@hunterthompson025](https://github.com/hunterthompson025) - emailhere <br>
-Paul Price - [@ptprice](https://github.com/ptprice) - emailhere <br>
+Barrett Mistele - [@bmist41](https://github.com/bmist41) - bear.mistele@gmail.com <br>
+Bradley Ragonese - [@bragonese1](https://github.com/bragonese1) - ragonesebradley@gmail.com <br>
+Hunter Thompson - [@hunterthompson025](https://github.com/hunterthompson025) - hunterthompson025@gmail.com <br>
+Paul Price - [@ptprice](https://github.com/ptprice) - ptprice@gmail.com <br>
 Steven Moreno - [@Nalipas](https://github.com/Nalipas) - smoreno2014@gmail.com <br>
-Travis McDermott - [@tjmcd2010](https://github.com/tjmcd2010) - emailhere <br>
+Travis McDermott - [@tjmcd2010](https://github.com/tjmcd2010) - tjmcd2010@gmail.com <br>
 
 Project Link: [https://github.com/bmist41/Cal-Bootcamp-Alumni](https://github.com/bmist41/Cal-Bootcamp-Alumni)
 
@@ -233,78 +268,17 @@ Project Link: [https://github.com/bmist41/Cal-Bootcamp-Alumni](https://github.co
 [issues-url]: https://github.com/bmist41/Cal-Bootcamp-Alumni/issues
 [license-shield]: https://img.shields.io/github/license/bmist41/Cal-Bootcamp-Alumni.svg?style=for-the-badge
 [license-url]: https://github.com/bmist41/Cal-Bootcamp-Alumni/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/msteven14
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
+
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
-
-
-
-# Add Comments to Implementation of the MERN-stack Architecture
-
-## Root-level Functionality
-
-* The `npm start` script: In production, we only run the back-end server, which will serve the built React application code as its front end.
-
-* The `npm run develop` script: In development, we need to run both a back-end server and the React development server, so we use the `concurrently` library to execute two separate promises at the same time.
-
-* The `npm install` script: Since our dependencies for the entire application exist in two smaller applications, we use this script to automatically install all of them at once.
-
-* The `npm run seed` script: We can seed our database with data when we run this command.
-
-* The `npm run build` script: When we deploy our application, we instruct the hosting service to execute the `build` command and build our production-ready React application."
-
-```json
-"scripts": {
-  "start": "node server/server.js",
-  "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
-  "install": "cd server && npm i && cd ../client && npm i",
-  "seed": "cd server && npm run seed",
-  "build": "cd client && npm run build"
-},
-```
-
-## Client-side Functionality
-
-* Since we run a front-end and back-end server for our full-stack application in development, we set it up so all client-side requests to our API server are prefixed with the API server's URL.
-
-```js
-  proxy: {
-    '/graphql': {
-      target: 'http://localhost:3001',
-      changeOrigin: true,
-      secure: false,
-    },
-  },
-```
-
-## Server-side Functionality
-
-* In production, when we no longer need to use the `vite` development server; we set up our server to serve the built React front-end application that is in the `../client/dist` directory.
-
-* Since the React front-end application will handle its own routing, we set up a wildcard route on our server that will serve the front end whenever a request for a non-API route is received.
-
-```js
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-  });
-}
-```
+[Vite.js]: https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white
+[Vite-url]: https://vitejs.dev
+[ChakraUI]: https://shields.io/badge/chakra--ui-black?logo=chakraui&style=for-the-badge
+[Chakra-url]: https://v2.chakra-ui.com/
+[Express.js]: https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white
+[Express-url]: https://expressjs.com
+[GraphQL]: https://img.shields.io/badge/GraphQL-E434AA?style=for-the-badge&logo=graphql&logoColor=white
+[GraphQL-url]: https://graphql.org/
+[MongoDB]: https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com
