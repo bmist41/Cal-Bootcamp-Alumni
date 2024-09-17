@@ -62,7 +62,7 @@ const ThoughtForm = () => {
             Character Count: {characterCount}/280
           </p>
           <form
-            className="flex-row justify-center justify-space-between-md align-center"
+            className="flex-row justify-center justify-space-between-md align-center" 
             onSubmit={handleFormSubmit}
           >
             <div>
@@ -71,7 +71,7 @@ const ThoughtForm = () => {
                 placeholder="Here's a new thought..."
                 value={thoughtText}
                 className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                style={{ lineHeight: '1.5', resize: 'vertical', width: '500px'  }}
                 onChange={handleChange}
               ></textarea>
             </div>
