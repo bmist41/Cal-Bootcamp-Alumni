@@ -69,7 +69,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="./assets/images/ProjectScreenshot1.png">
 
 The Berkeley Extension Coding Bootcamp Alumni Center is a web application which acts as a social network for Alumni of the Coding Bootcamp hosted at the UC Berkeley Extension. Here, Alumni can connect by sharing their experiences and contact information with each other through user profiles and thought posting.
 
@@ -94,7 +94,9 @@ The Berkeley Extension Coding Bootcamp Alumni Center is a web application which 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how to get the project running on your local machine. Alternatively, the application is hosted on Render(LINK).
+<img src="./assets/images/ProjectScreenshot2.png">
+
+This is an example of how to get the project running on your local machine. Alternatively, the application is hosted on <a href="https://cal-bootcamp-alumni.onrender.com">Render</a>
 
 ### Root-level Functionality
 
@@ -109,13 +111,14 @@ This is an example of how to get the project running on your local machine. Alte
 * The `npm run build` script: When we deploy our application, we instruct the hosting service to execute the `build` command and build our production-ready React application."
 
 ```json
-"scripts": {
-  "start": "node server/server.js",
-  "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
-  "install": "cd server && npm i && cd ../client && npm i",
-  "seed": "cd server && npm run seed",
-  "build": "cd client && npm run build"
-},
+  "scripts": {
+    "start": "node server --ignore client",
+    "develop": "concurrently \"cd server && npm run start\" \"cd client && npm run dev\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build",
+    "develops": "concurrently \"cd server && npm run start\" \"cd client && npm run devs\""
+  }
 ```
 
 ### Client-side Functionality
@@ -123,13 +126,20 @@ This is an example of how to get the project running on your local machine. Alte
 * Since we run a front-end and back-end server for our full-stack application in development, we set it up so all client-side requests to our API server are prefixed with the API server's URL.
 
 ```js
-  proxy: {
-    '/graphql': {
-      target: 'http://localhost:3001',
-      changeOrigin: true,
-      secure: false,
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/graphql': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
+});
 ```
 
 ### Server-side Functionality
@@ -139,13 +149,13 @@ This is an example of how to get the project running on your local machine. Alte
 * Since the React front-end application will handle its own routing, we set up a wildcard route on our server that will serve the front end whenever a request for a non-API route is received.
 
 ```js
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/src')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/src/index.html'));
-  });
-}
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    });
+  }
 ```
 
 ### Prerequisites
@@ -179,9 +189,10 @@ if (process.env.NODE_ENV === 'production') {
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-The application can be run locally, or you can head to Render(LINK) to see the applicaiton hosted on a server.
+The application can be run locally, or you can head to <a href="https://cal-bootcamp-alumni.onrender.com">Render</a> to see the hosted application in action! On the application a user can `Login` or `Signup`, and view posts from other users in the network. Users are able to create thoughts to share with others or comment on others' thoughts. You can also view all users in the `Users` tab, where you can also edit your profile to include links to other social media.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<img src="./assets/images/ProjectScreenshot3.png">
+<img src="./assets/images/ProjectScreenshot4.png">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
