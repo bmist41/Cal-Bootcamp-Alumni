@@ -12,12 +12,12 @@ const CommentList = ({ comments = [] }) => {
       >
         Comments
       </Text>
-      <Box bg = "dark">
+      <Box bg = "darkblue">
       <div className="flex-row my-4">
         {comments &&
           comments.map((comment) => (
             <div key={comment._id} className="col-12 mb-3 pb-3">
-              <div className="p-3 bg-dark text-light">
+              <div className="p-3 bg-dark-blue text-light">
                 <Text font = "sans-serif">
                   {comment.commentAuthor} commented{' '}
                   <span style={{ fontSize: '0.825rem' }}>
