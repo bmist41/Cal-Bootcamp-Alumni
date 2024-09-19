@@ -228,50 +228,14 @@ const Profile = () => {
                 Edit Profile
               </button>
               </Box>
-              <Box mb={8}>
-        <Heading size="md" mb={4}>
-          {userParam ? `${user.username}'s` : 'My'} Previous Thoughts
-        </Heading></Box>
-      <Box mb={8}>
-        
-        <ThoughtList
-          thoughts={user.thoughts}
-          title={`${user.username}'s thoughts...`}
-          showTitle={false}
-          showUsername={false}
-        />
-      </Box>
+              
+      
             </>
           )}
         </div>
       )}
 
-      {/* <Box mb={8}>
-        <Heading size="md" mb={4}>
-          {userParam ? `${user.username}'s` : "My"} Previous Thoughts
-        </Heading>
-      </Box>
-      <Box mb={8}>
-        <ThoughtList
-          thoughts={user.thoughts}
-          title={`${user.username}'s thoughts...`}
-          showTitle={false}
-          showUsername={false}
-        />
-      </Box>
-
-      {!userParam && (
-        <Box
-          mb={6}
-          p={6}
-          borderWidth={1}
-          borderStyle="dotted"
-          borderColor="gray.500"
-          borderRadius="md"
-        >
-          <ThoughtForm />
-        </Box> */}
-      {/* )} */}
+     
     </Flex>
   );
 };
